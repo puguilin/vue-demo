@@ -1,0 +1,271 @@
+<!-- 
+
+
+    https://blog.csdn.net/qq_44827865/article/details/115457445
+
+    为什么在vue3.0中不能使用Element UI了？
+    由于vue3.0在插件install函数的入参从Vue原型（类）改成了app（vue实例），导致element-ui中Vue.prototype.* 这样的代码已经全都失效了。所以element-ui铁定是不兼容了。
+    那有什么方法能解决吗？
+    使用Element UI的升级版element-plus
+
+使用： 
+    1、npm 安装
+        npm install --save
+
+    2、引入 Element Plus
+        在 main.js 中写入以下内容：
+        import ElementPlus from 'element-plus';
+        import 'element-plus/lib/theme-chalk/index.css';
+        app.use(ElementPlus)
+
+        以上代码便完成了 Element Plus 的引入。需要注意的是，样式文件需要单独引入。
+
+    2.2 按需引入
+        1、  安装 babel-plugin-import:
+            npm install babel-plugin-import -D
+        2、将 babel.config.js 修改为：
+            module.exports = {
+            plugins: [
+                [
+                "import",
+                {
+                    libraryName: 'element-plus',
+                    customStyleName: (name) => {
+                    name = name.slice(3)
+                    return `element-plus/packages/theme-chalk/src/${name}.scss`;
+                    },
+                },
+                ],
+            ],
+            };
+        
+        3、创建 src/plugins/elements.js文件
+            import {
+                ElAlert,
+                ElAside,
+                ElAutocomplete,
+                ElAvatar,
+                ElBacktop,
+                ElBadge,
+                ElBreadcrumb,
+                ElBreadcrumbItem,
+                ElButton,
+                ElButtonGroup,
+                ElCalendar,
+                ElCard,
+                ElCarousel,
+                ElCarouselItem,
+                ElCascader,
+                ElCascaderPanel,
+                ElCheckbox,
+                ElCheckboxButton,
+                ElCheckboxGroup,
+                ElCol,
+                ElCollapse,
+                ElCollapseItem,
+                ElCollapseTransition,
+                ElColorPicker,
+                ElContainer,
+                ElDatePicker,
+                ElDialog,
+                ElDivider,
+                ElDrawer,
+                ElDropdown,
+                ElDropdownItem,
+                ElDropdownMenu,
+                ElFooter,
+                ElForm,
+                ElFormItem,
+                ElHeader,
+                ElIcon,
+                ElImage,
+                ElInput,
+                ElInputNumber,
+                ElLink,
+                ElMain,
+                ElMenu,
+                ElMenuItem,
+                ElMenuItemGroup,
+                ElOption,
+                ElOptionGroup,
+                ElPageHeader,
+                ElPagination,
+                ElPopconfirm,
+                ElPopover,
+                ElPopper,
+                ElProgress,
+                ElRadio,
+                ElRadioButton,
+                ElRadioGroup,
+                ElRate,
+                ElRow,
+                ElScrollbar,
+                ElSelect,
+                ElSlider,
+                ElStep,
+                ElSteps,
+                ElSubmenu,
+                ElSwitch,
+                ElTabPane,
+                ElTable,
+                ElTableColumn,
+                ElTabs,
+                ElTag,
+                ElTimePicker,
+                ElTimeSelect,
+                ElTimeline,
+                ElTimelineItem,
+                ElTooltip,
+                ElTransfer,
+                ElTree,
+                ElUpload,
+                ElInfiniteScroll,
+                ElLoading,
+                ElMessage,
+                ElMessageBox,
+                ElNotification,
+            } from "element-plus";
+
+
+            const components = [
+                ElAlert,
+                ElAside,
+                ElAutocomplete,
+                ElAvatar,
+                ElBacktop,
+                ElBadge,
+                ElBreadcrumb,
+                ElBreadcrumbItem,
+                ElButton,
+                ElButtonGroup,
+                ElCalendar,
+                ElCard,
+                ElCarousel,
+                ElCarouselItem,
+                ElCascader,
+                ElCascaderPanel,
+                ElCheckbox,
+                ElCheckboxButton,
+                ElCheckboxGroup,
+                ElCol,
+                ElCollapse,
+                ElCollapseItem,
+                ElCollapseTransition,
+                ElColorPicker,
+                ElContainer,
+                ElDatePicker,
+                ElDialog,
+                ElDivider,
+                ElDrawer,
+                ElDropdown,
+                ElDropdownItem,
+                ElDropdownMenu,
+                ElFooter,
+                ElForm,
+                ElFormItem,
+                ElHeader,
+                ElIcon,
+                ElImage,
+                ElInput,
+                ElInputNumber,
+                ElLink,
+                ElMain,
+                ElMenu,
+                ElMenuItem,
+                ElMenuItemGroup,
+                ElOption,
+                ElOptionGroup,
+                ElPageHeader,
+                ElPagination,
+                ElPopconfirm,
+                ElPopover,
+                ElPopper,
+                ElProgress,
+                ElRadio,
+                ElRadioButton,
+                ElRadioGroup,
+                ElRate,
+                ElRow,
+                ElScrollbar,
+                ElSelect,
+                ElSlider,
+                ElStep,
+                ElSteps,
+                ElSubmenu,
+                ElSwitch,
+                ElTabPane,
+                ElTable,
+                ElTableColumn,
+                ElTabs,
+                ElTag,
+                ElTimePicker,
+                ElTimeSelect,
+                ElTimeline,
+                ElTimelineItem,
+                ElTooltip,
+                ElTransfer,
+                ElTree,
+                ElUpload,
+            ]
+            const plugins = [
+                ElInfiniteScroll,
+                ElLoading,
+                ElMessage,
+                ElMessageBox,
+                ElNotification,
+            ]
+            const installElement = (app) => {
+                components.forEach((component) => {
+                    app.component(component.name, component)
+                })
+
+                plugins.forEach((plugin) => {
+                    app.use(plugin)
+                })
+            }
+
+            export {
+                installElement
+            }
+
+        4、在main.js导入     第四步去掉不用 
+            // 导入Element
+            import { installElement } from "./plugins/elements";
+            // 调用installElement
+            installElement(app)
+            // 使用installElement
+            .use(installElement)
+
+      
+
+   6、https://element-plus.org/zh-CN/component/icon.html#%E4%BD%BF%E7%94%A8%E5%9B%BE%E6%A0%87
+    图标的使用  npm install @element-plus/icons  npm install @element-plus/icons-vue
+
+
+  7、vue3.0中使用Element-plus默认英文组件修改为中文修改方法
+         1、   import locale from 'element-plus/lib/locale/lang/zh-cn' //中文
+         2、   app.use(locale)	
+         3、 在组件的地方
+                //1、导入
+                import zhCn from "element-plus/lib/locale/lang/zh-cn";
+                 //2、时间中文格式
+                setup(props, context) {
+                    let locale = zhCn;
+                    return { locale };
+                },
+
+                //3、初始化
+                data() {
+                    return {
+                        zhCn,
+                    }
+                }
+
+            4、最重要的是 （因为有的不加这个不生效）
+             <el-config-provider :locale="locale">
+                <slot name="app"></slot>
+            </el-config-provider>
+
+
+
+ -->

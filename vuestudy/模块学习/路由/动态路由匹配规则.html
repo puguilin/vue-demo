@@ -1,0 +1,9 @@
+/dtly/:id	参数id必须传，参数可以是数字也可以是字符串。即/dtly/1和/dtly/abc都匹配这个路由规则
+
+/dtly/:id?	参数id可以传，也可以不传。即/dtly/1和/dtly
+
+/dtly/:id(\d+)	参数id必须传，并且id只能是数字。如：/dtly/1
+
+/dtly/*	星号表示匹配任意路径，即：/dtly/abc和/dtly/abc/def都可以匹配这条路由规则
+
+

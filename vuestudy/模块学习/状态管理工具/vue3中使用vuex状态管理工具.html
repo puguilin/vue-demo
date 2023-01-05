@@ -1,0 +1,41 @@
+<!--
+    学习参考
+
+        https://blog.csdn.net/qq_45934504/article/details/123462736
+
+        https://juejin.cn/post/7052714417665867784#heading-15
+
+二者结合看
+
+1、state使用   在state中储存数据  
+
+    在需要使用的template 调用 <p>{{ $store.state.属性名 }}</p>  即可 
+    在mian.js 引入 
+        //将store加入vue实例
+        import store from './store'
+        //使用store
+        app.use(store)	
+
+2、mutations  中的方法是用来修改  state中的属性值的   
+      更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。
+    在需要使用的template 
+    1、// 导入 useStore 函数 import { useStore } from 'vuex'
+    2、函数
+        setup() {
+        const store = useStore()     // 获取store
+        function add() {
+            store.commit("sum", 1)
+        }
+        function reduce() {
+            store.commit("reduce")
+        }
+        return { add, reduce }
+    }
+
+
+3、actions   异步操作在action中进行，再传递到mutation
+    action 中定义的方法默认参数为** context 上下文**， 可以理解为 store 对象
+    通过 context 上下文对象，拿到store，通过 commit 触发 mution 中的方法，以此来完成异步操作
+
+
+-->
