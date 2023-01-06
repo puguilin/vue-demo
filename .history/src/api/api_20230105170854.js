@@ -52,7 +52,7 @@ export const getById = params => {
 
 //按条件查询用户
 export const login = params => {
-  return axios.post(`http://localhost:8082/user/queryByUserNameAndPassward`,params);
+  return axios.post(`http://localhost:8082/user/queryByUserNameAndPassward`,{ params: params });
 };
 
 /**

@@ -47,12 +47,12 @@ export const insertMap = params => {
 
 //按条件查询学生
 export const getById = params => {
-  return axios.get(`http://localhost:8082/student/getById`,{ params: params });
+  return axios.get(`http://localhost:8082/api/student/getById`,{ params: params });
 };
 
 //按条件查询用户
-export const login = params => {
-  return axios.post(`http://localhost:8082/user/queryByUserNameAndPassward`,params);
+export const getUserById = params => {
+  return axios.get(`http://localhost:8082/api/user/queryByUserNameAndPassward`,{ params: params });
 };
 
 /**
@@ -60,5 +60,5 @@ export const login = params => {
  */
 //export const getAdminInfo = () => fetch('/admin/info');
 export const getAdminInfo = params => {
-  return axios.get(`http://localhost:8082/user/queryById`,{ params: params });
+  return axios.get(`http://localhost:8082/api/user/queryById`,{ params: params });
 };

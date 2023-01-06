@@ -17,7 +17,6 @@ import Demao08Slider from '@/components/vueBasc/elmentBasc/Demao08Slider.vue'
 import Demao09DateTime from '@/components/vueBasc/elmentBasc/Demao09DateTime.vue' 
 import Demao10Upload from '@/components/vueBasc/elmentBasc/Demao10Upload.vue' 
 import Demao11Form from '@/components/vueBasc/elmentBasc/Demao11Form.vue' 
-import Login from '@/components/page/Login.vue'
 
 
 
@@ -28,11 +27,6 @@ const routes = [
         path:'/',              //当访问根路径的时候
         redirect:'/home'        // 重定向到redirect配置路径
      },
-     {
-        name: 'login',
-        path: '/login',
-        component: Login
-    },
      {
         name: 'home',
         path: '/home',
